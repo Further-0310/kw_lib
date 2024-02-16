@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.20)
+
+if(OB_BUILD_OPENSOURCE)
+  project("OceanBase_CE"
+    VERSION 4.2.1.0
+    DESCRIPTION "OceanBase distributed database system"
+    HOMEPAGE_URL "https://open.oceanbase.com/"
+    LANGUAGES CXX C ASM)
+  message(STATUS "open source build enabled")
+else()
+  project(OceanBase
+    VERSION 4.2.1.0
+    DESCRIPTION "OceanBase distributed database system"
+    HOMEPAGE_URL "https://www.oceanbase.com/"
+    LANGUAGES CXX C ASM)
+endif()
+
+include(cmake/Utils.cmake)
+include(cmake/Env.cmake)
+
+message(STATUS "This is BINARY dir " ${PROJECT_BINARY_DIR})
+message(STATUS "This is SOURCE dir " ${PROJECT_SOURCE_DIR})
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+add_subdirectory(deps/easy)
+add_subdirectory(deps/oblib)
+# add_subdirectory(src)
+
+include(cmake/RPM.cmake)
